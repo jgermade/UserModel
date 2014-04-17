@@ -1,10 +1,11 @@
 <?php
-    $d_root = isset($c_dir) ? $c_dir : $_SERVER['DOCUMENT_ROOT'];
+    require("/server/www/.base/config.php");
+    /*$d_root = isset($c_dir) ? $c_dir : $_SERVER['DOCUMENT_ROOT'];
 
     if( !defined('API_VERSION') ) {
         require("/server/www/.base/config.php");
         require("$d_root/config.php");
-    }
+    }*/
     
     function headersJSON(){
         ob_start ("ob_gzhandler");

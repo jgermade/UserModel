@@ -1,5 +1,8 @@
 <?php
-    require_once("/server/www/.base/model/UserModel.php"); ajaxOnly();
+    //require_once("/server/www/.base/model/UserModel.php"); 
+    require_once($_SERVER['DOCUMENT_ROOT']."/api.php");
+    require_once(API_DIR."/UserModel.php");
+    ajaxOnly();
     $user = new UserModel();
     
     switch($_SERVER['REQUEST_METHOD']) {
