@@ -1,7 +1,7 @@
 <?php
     $d_root = isset($c_dir) ? $c_dir : $_SERVER['DOCUMENT_ROOT'];
 
-    if( !defined('GSOFT_VERSION') ) {
+    if( !defined('API_VERSION') ) {
         require("/server/www/.base/config.php");
         require("$d_root/config.php");
     }
