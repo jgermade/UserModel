@@ -1,0 +1,74 @@
+<?php
+    require_once("/server/www/.base/model/UserModel.php"); ajaxOnly();
+    $user = new UserModel();
+    
+    switch($_SERVER['REQUEST_METHOD']) {
+        case 'GET': // status
+            $user_data = $user->data();
+            $user_data->logged = !!$user->isLogged();
+            if( !$user_data->logged ) $user_data->alias = $user_data->uname;
+            unset($user_data->id); echoJSON($user_data);
+            break;
+        case 'POST': // logIn
+            
+            $request = payloadJSON();
+            
+            if( isset($request['answer']) ) {
+                $error = false;
+                
+                if( isset($request['uname']) ) {
+                    $uname = $request['uname'];
+                } else {
+                    if( isset($request['email']) ) {
+                        $user_data = $user->model("_users")->get([ "where" => ("email = '".$request['email']."'") ]);
+                        $error = "user-not-found";
+                        if( isset($user_data->data) ) {
+                            if( isset($user_data->data[0]) ) {
+                                $uname = $user_data->data[0]['uname'];
+                                $error = false;
+                            }
+                        }
+                    } else {
+                        $user_data = $user->data();
+                        $uname = $user_data->uname or "default";
+                    }
+                }
+                
+                if( $error ) {
+                    http_response_code(400);
+                    echoJSON( array( "error" => $error ) );
+                } else {
+                    $login = $user->logIn($uname,$request['answer']);
+                    
+                    if( $login['error'] ) {
+                        http_response_code(400);
+                        echoJSON( array( "error" => $login['error'] ) );
+                    } else {
+                        $user_data = $user->data();
+                        $user_data->logged = true;
+                        unset($user_data->id); // hidding user id for privacy
+                        echoJSON($user_data);
+                    }
+                }
+                
+            } else {
+                http_response_code(400);
+                echoJSON([ "error" => "answer-missing" ]);
+            }
+            
+            break;
+        case 'DELETE':
+            $logout = $user->logOut();
+            if( $logout['error'] ) {
+                http_response_code(400);
+                echoJSON( array( "error" => $logout['error'] ) );
+            } else {
+                $user_data = $user->data();
+                $user_data->logged = !!$user->isLogged();
+                $user_data->alias = $user_data->uname;
+                unset($user_data->id); echoJSON($user_data);
+            }
+            break;
+    }
+    $user->close();
+?>
