@@ -1,0 +1,8 @@
+<?php
+    require_once("UserModel.php"); ajaxOnly();
+    $user = new UserModel();
+    
+    echoJSON(i18n($_REQUEST['env'],$user->lang),[ "b64" => false ]);
+    
+    $user->close();
+?>
