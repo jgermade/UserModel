@@ -28,8 +28,8 @@
     
     function isPOST() { return $_SERVER['REQUEST_METHOD'] == "POST"; }
     
-    function replaceKeys($str,$keys,$patt){
-        if( !is_string($patt) ) $patt = "/\\\${([\\-\\w\\.]+)}/";
+    function replaceKeys($str,$keys,$patt = "/\\\${([\\-\\w\\.]+)}/"){
+        //if( !is_string($patt) ) $patt = "/\\\${([\\-\\w\\.]+)}/";
         return preg_replace_callback($patt,function($coincidencias) use ($keys) {
             if( isset($coincidencias[1]) ) {
                 $key = $coincidencias[1];
@@ -385,7 +385,7 @@
             foreach( $data->indexes as $index => $table ) {
                 $list_id = array();
                 foreach( $data->data as &$item ) {
-                    array_push($list_id,$item[$index]);
+                    if( $item[$index] ) array_push($list_id,$item[$index]);
                 }
                 $list_data = $this->model_sql->model($table)->getFull([ "id" => $list_id ]);
                 foreach( $data->data as &$item ) {
