@@ -555,9 +555,9 @@
     
     
     class ModelSQL {
-        private $host = "localhost";
-        private $user = "gsoft";
-        private $pass = "Os0depeluch3";
+        private $host = DB_HOST;
+        private $user = DB_USER;
+        private $pass = DB_PASS;
         private $db_name = DB_NAME;
         private $tables = array();
         public $uid = 0;
