@@ -101,8 +101,6 @@
                 
                 if( !isset($i18n[$env]) ) $i18n[$env] = i18n($env,$lang) or [];
                 
-                //echo "env: $env, key: $key, i18n: ".$i18n[$env][$key]."<br/>";
-                
                 if( isset($i18n[$env][$key]) ) return $i18n[$env][$key];
                 else return $coincidencias[0];
                 
