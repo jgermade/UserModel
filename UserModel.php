@@ -553,7 +553,7 @@
     
     
     class ModelSQL {
-        private $host = isset(DB_HOST) ? DB_HOST : "localhost";
+        private $host = "localhost";
         private $user = DB_USER;
         private $pass = DB_PASS;
         private $db_name = DB_NAME;
