@@ -1,0 +1,10 @@
+{
+    "name": "jgermade/user-model",
+    "authors": [
+        {
+            "name": "Jesús Germade",
+            "email": "jesus@germade.es"
+        }
+    ],
+    "require": {}
+}

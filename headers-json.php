@@ -4,4 +4,3 @@
     header("charset: utf-8");
     header("Cache-Control: no-cache");
     header("Expires: -1");
-?>
