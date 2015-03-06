@@ -1,6 +1,12 @@
 {
     "version": "1.0.0",
     "name": "jgermade/user-model",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:jgermade/UserModel.git"
+        }
+    ],
     "authors": [
         {
             "name": "Jesús Germade",
